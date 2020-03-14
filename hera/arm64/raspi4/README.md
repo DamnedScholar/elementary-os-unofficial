@@ -19,12 +19,19 @@ He makes his builds available at https://github.com/TheRemote/Ubuntu-Server-rasp
 
 ## Download
 
-Download the latest unofficial release for Raspberry Pi 4 from https://github.com/meisenzahl/elementary-os-unofficial/releases.
+Download the latest unofficial release for Raspberry Pi 4 from:
+
+* https://github.com/Jiab77/elementary-os-unofficial/releases (_updated releases_)
+* https://github.com/meisenzahl/elementary-os-unofficial/releases (_original releases_)
 
 ## Installation
 
 As recommended by the Raspberry Pi Foundation use [balenaEtcher](https://www.balena.io/etcher/)
 to flash the image to a SD card. The SD card should be at least 8 GB in size.
+
+> The __Gnome Disk__ tool can also be used to flash the image on the SD card.
+>
+> You can install it from the package `gnome-disk-utility`.
 
 After you booted your Raspberry Pi 4 you are welcomed by the new [Initial Setup](https://github.com/elementary/initial-setup) process.
 
@@ -93,10 +100,12 @@ After your Raspberry Pi 4 has booted up you can see that all storage is used.
 - [ ] Graphics are only partly hardware accelerated.
 - [ ] 4k videos cannot be played.
 - [ ] Settings for sound are not saved across a boot.
+- [ ] Wireless country setting hardcoded to `US`.
+- [ ] Missing `DTB` drivers that make `flash-kernel` package not upgradable.
 
 ## Support
 
-If you come across a problem open an [issue](https://github.com/meisenzahl/elementary-os-unofficial/issues).
+If you come across a problem open an [issue](https://github.com/Jiab77/elementary-os-unofficial/issues).
 
 ## Building Locally
 
@@ -105,14 +114,14 @@ The following example uses Docker and assumes you have Docker correctly installe
 1.  Run the build:
 
     ```
-    mkdir -p artifacts
+    mkdir -p elementary-os-unofficial
     docker run --privileged -i \
         -v /proc:/proc \
-        -v ${PWD}/artifacts:/artifacts \
+        -v ${PWD}/images:/artifacts \
         -v ${PWD}:/working_dir \
         -w /working_dir \
         debian:latest \
         ./build.sh
     ```
 
-2.  When done, your image will be in the `artifacts` folder.
+2.  When done, your image will be in the `elementary-os-unofficial/images` folder.
