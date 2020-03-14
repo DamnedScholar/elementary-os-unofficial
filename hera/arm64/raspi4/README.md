@@ -17,6 +17,8 @@ The builds are based on the work of James A. Chambers alias [TheRemote](https://
 He has documented his work at https://jamesachambers.com/raspberry-pi-ubuntu-server-18-04-2-installation-guide/.
 He makes his builds available at https://github.com/TheRemote/Ubuntu-Server-raspi4-unofficial.
 
+Also thanks to Marius Meisenzahl [@msnzhl](https://github.com/meisenzahl), the original author of this project available here: https://github.com/meisenzahl/elementary-os-unofficial.
+
 ## Download
 
 Download the latest unofficial release for Raspberry Pi 4 from:
