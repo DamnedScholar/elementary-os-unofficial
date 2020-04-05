@@ -8,6 +8,8 @@ To download the official version visit [https://elementary.io/](https://elementa
 
 Go to the [installation page](https://github.com/Jiab77/elementary-os-unofficial/tree/master/hera/arm64/raspi4).
 
+> To build with the latest base image, change the build script from `build.sh` to `build-latest.sh`
+
 ## Credits
 
 All credits goes to the original authors:
