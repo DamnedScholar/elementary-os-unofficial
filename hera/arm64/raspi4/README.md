@@ -116,7 +116,7 @@ The following example uses Docker and assumes you have Docker correctly installe
 1.  Run the build:
 
     ```
-    mkdir -p elementary-os-unofficial
+    mkdir -pv images
     docker run --privileged -i \
         -v /proc:/proc \
         -v ${PWD}/images:/artifacts \
@@ -126,4 +126,4 @@ The following example uses Docker and assumes you have Docker correctly installe
         ./build.sh
     ```
 
-2.  When done, your image will be in the `elementary-os-unofficial/images` folder.
+2.  When done, your image will be in the `images` folder.
