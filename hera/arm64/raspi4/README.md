@@ -14,8 +14,8 @@ To download the official version visit [https://elementary.io/](https://elementa
 ## Special thanks
 
 The builds are based on the work of James A. Chambers alias [TheRemote](https://github.com/TheRemote).
-He has documented his work at https://jamesachambers.com/raspberry-pi-ubuntu-server-18-04-2-installation-guide/.
-He makes his builds available at https://github.com/TheRemote/Ubuntu-Server-raspi4-unofficial.
+
+He has documented his work at https://jamesachambers.com/raspberry-pi-ubuntu-server-18-04-2-installation-guide/. He also made his builds available at https://github.com/TheRemote/Ubuntu-Server-raspi4-unofficial.
 
 Also thanks to Marius Meisenzahl [@msnzhl](https://github.com/meisenzahl), the original author of this project available here: https://github.com/meisenzahl/elementary-os-unofficial.
 
@@ -102,8 +102,9 @@ After your Raspberry Pi 4 has booted up you can see that all storage is used.
 - [ ] Graphics are only partly hardware accelerated.
 - [ ] 4k videos cannot be played.
 - [ ] Settings for sound are not saved across a boot.
-- [ ] Wireless country setting hardcoded to `US`.
-- [ ] Missing `DTB` drivers that make `flash-kernel` package not upgradable.
+- [X] Wireless country setting hardcoded to `US`.
+- [X] Missing `DTB` drivers that make `flash-kernel` package not upgradable.
+- [X] Missing `ssh` keys.
 
 ## Support
 
@@ -113,17 +114,22 @@ If you come across a problem open an [issue](https://github.com/Jiab77/elementar
 
 The following example uses Docker and assumes you have Docker correctly installed and set up:
 
-1.  Run the build:
+1. Edit the `build.sh` script and define the `COUNTRY` variable to your country code.
+   * Example: US, GB, FR, CH, BE...
+
+2. Run the build script:
 
     ```
     mkdir -pv images
-    docker run --privileged -i \
+    time docker run --privileged -i \
         -v /proc:/proc \
-        -v ${PWD}/images:/artifacts \
+        -v ${PWD}/images:/images \
         -v ${PWD}:/working_dir \
         -w /working_dir \
         debian:latest \
         ./build.sh
     ```
 
-2.  When done, your image will be in the `images` folder.
+    > To build with the latest base image, change the build script from `build.sh` to `build-latest.sh`
+
+3.  When done, your image will be in the `images` folder.
