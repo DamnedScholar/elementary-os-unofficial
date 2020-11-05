@@ -104,7 +104,7 @@ if [ ! -f ${BASE_IMG} ]; then
 
     echo -e "${NL}${BLUE}Uncompressing downloaded image...${NC}"
     #unxz ${BASE_IMG}.xz
-    xz -d -T 0 -v ${BASE_IMG}.xz
+    xz -d -T 0 -v ${BASE_IMG}.xz 2>&1
 fi
 
 echo -e "${NL}${BLUE}Copying ${BASE_IMG} to ${TARGET_IMG}...${NC}"
@@ -209,6 +209,11 @@ mount -v --bind /dev/pts /mnt/dev/pts
 mount -v --bind /proc /mnt/proc
 #mount -v --bind /run /mnt/run
 
+# Patch DNS
+#echo "${NL}${BLUE}Patching DNS...${NC}"
+#echo "1.1.1.1" | tee /mnt/run/systemd/resolve/stub-resolv.conf
+#ls -sfvn /mnt/run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
+
 # chroot
 set +e
 
@@ -216,11 +221,15 @@ echo -e "${NL}${BLUE}Starting chrooted environment...${NC}"
 chroot /mnt /bin/bash << EOF
 # Add elementary OS stable repository
 echo -e "${NL}${BLUE}Adding elementary stable repository...${NC}"
-add-apt-repository ppa:elementary-os/stable -ny
+add-apt-repository -y ppa:elementary-os/stable
 
 # Add elementary OS patches repository
 echo -e "${NL}${BLUE}Adding elementary patches repository...${NC}"
-add-apt-repository ppa:elementary-os/os-patches -ny
+add-apt-repository -y ppa:elementary-os/os-patches
+
+# Refresh package cache manually
+echo -e "${NL}${BLUE}Refreshing package cache...${NC}"
+apt update --fix-missing -y
 
 # Patch upgrade issues with flash-kernel package
 echo -e "${NL}${BLUE}Marking package flash-kernel on hold...${NC}"
@@ -302,8 +311,8 @@ echo -e "${NL}${BLUE}Patching wireless network country code...${NC}"
 sed -Ee 's/REGDOMAIN=\w+/REGDOMAIN='${COUNTRY}'/g' -i /mnt/etc/default/crda
 
 # Recreate ssh host keys
-echo -e "${NL}${BLUE}Recreating SSH host keys...${NC}"
-ssh-keygen -A
+#echo -e "${NL}${BLUE}Recreating SSH host keys...${NC}"
+#ssh-keygen -A
 
 # Unmount
 UnmountIMGPartitions
